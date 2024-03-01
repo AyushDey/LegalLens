@@ -4,7 +4,7 @@ import os
 from pypdf import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import HuggingFaceInferenceAPIEmbeddings
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import Chroma
 from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 from langchain.chains import ConversationalRetrievalChain, LLMChain
@@ -41,7 +41,7 @@ def get_vectors(txt_list):
         api_key=os.getenv('HUGGINGFACEHUB_API_TOKEN'),
         model_name="BAAI/bge-large-en-v1.5"
     )
-    vector_store = FAISS.from_texts(txt_list, embeddings)
+    vector_store = Chroma.from_texts(txt_list, embeddings)
     return vector_store
 
 
